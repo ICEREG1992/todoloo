@@ -1,6 +1,7 @@
 html, body, #root {
   padding: 0;
   height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #root {
@@ -9,12 +10,12 @@ html, body, #root {
 }
 
 .header {
-  height:auto
+  height: auto;
+  padding: 22px 32px;
 }
 
 .header a {
   font-size: 42px;
-  padding: 22px;
   text-decoration: none;
   color: black
 }
@@ -24,8 +25,19 @@ html, body, #root {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height:100%;
+  max-height: calc(100% - 93px);
+  height: 100%;
   width:100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  max-height: calc(100% - 46px);
+  width: 100%;
 }
 
 .menu {
@@ -34,7 +46,8 @@ html, body, #root {
   justify-content: space-between;
   align-items: center;
   border: 2px solid black;
-  height: 50%;
+  border-radius: 2px 2px 0px 0px;
+  height: 70%;
   width: 60%;
 }
 
@@ -44,6 +57,7 @@ html, body, #root {
   align-items: center;
   width: 100%;
   height: 100%;
+  overflow-y: auto;
 }
 
 .all-done {
@@ -59,12 +73,29 @@ html, body, #root {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 4px 0px;
+  border-bottom: 1px solid #ddd;
 }
 
 .todo button, .todo input {
   min-width: 28px;
   height: 100%;
   padding: 4px;
+  margin-left: 8px;
+}
+
+.todo button {
+  margin: 0px 8px 0px 0px;
+  padding: 5px 0px;
+  border-radius: 2px;
+  border: 1px solid grey;
+  width: 100%;
+  height: 100%;
+}
+
+.todo button:hover {
+  background-color: lightgrey;
+  transition-duration: .1s;
 }
 
 .todo span:hover {
@@ -112,11 +143,24 @@ html, body, #root {
   border-left: 2px solid black
 }
 
+.manage button {
+  font-size: 18px;
+  border-radius: 2px;
+  border: 0;
+  padding: 12px;
+}
+
+.manage button:hover {
+  background-color: darkgrey;
+  transition-duration: .1s;
+}
+
 .progressbar {
   width: calc(60% + 4px);
-  margin-bottom: 10%;
+  margin-bottom: 5%;
   height: 4px;
   background-color: black;
+  border-radius: 0px 0px 2px 2px;
 }
 
 .progress {
@@ -124,4 +168,9 @@ html, body, #root {
   background-color: green;
   height: 4px;
   transition-duration: .4s;
+  border-radius: 0px 0px 2px 2px;
+}
+
+.credits {
+  padding-bottom: 28px;
 }

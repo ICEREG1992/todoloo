@@ -19,7 +19,7 @@ export default function TodoText({ todo, toggleEditing, updateText }) {
     if (todo.editing) {
         return (
             <form onSubmit={handleSubmit}>
-                <input autoFocus type='Text' ref={ref} onChange={handleUpdate}></input>
+                <input autoFocus type='Text' ref={ref} onChange={handleUpdate} value={todo.text}></input>
             </form>
         )
     } else {

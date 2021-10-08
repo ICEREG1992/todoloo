@@ -1,11 +1,25 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TodoList from './TodoList';
 import { v4 as uuidv4 } from 'uuid';
+
+const localStorageKey = 'todoloo.data';
 
 function App() {
   const [todos, setTodos] = useState([]);
   
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem(localStorageKey));
+    if (data) {
+      setTodos(data);
+    }
+  }, [])
+
+  // save todos to localstorage
+  useEffect(() => {
+    localStorage.setItem(localStorageKey, JSON.stringify(todos));
+  }, [todos])
+
   function addTodo(e) {
     // add new todo to list
     const temp_id = uuidv4();
@@ -76,20 +90,24 @@ function App() {
         <a href="./">todoloo</a>
       </div>
       <div className="app">
-        <div className="menu">
-          <div className="list">
-            <TodoList todos={todos} doneTodo={doneTodo} toggleEditing={toggleEditing} updateText={updateText} move={move} deleteTodo={deleteTodo} />
+        <div className="main">
+          <div className="menu">
+            <div className="list">
+              <TodoList todos={todos} doneTodo={doneTodo} toggleEditing={toggleEditing} updateText={updateText} move={move} deleteTodo={deleteTodo} />
+            </div>
+            <div className="manage">
+              <button onClick={addTodo}>new todo</button>
+              <button onClick={clearDone}>clear finished</button>
+              <button onClick={clearAll}>clear all</button>
+            </div>
           </div>
-          <div className="manage">
-            <button onClick={addTodo}>new todo</button>
-            <button onClick={clearDone}>clear finished</button>
-            <button onClick={clearAll}>clear all</button>
+          <div className="progressbar">
+            <div className="progress" style={{width: (todos.filter(todo => todo.done).length / todos.length) * 100 + "%"}}></div>
           </div>
         </div>
-        <div className="progressbar">
-          <div className="progress" style={{width: (todos.filter(todo => todo.done).length / todos.length) * 100 + "%"}}></div>
+        <div className="credits">
+          <span className="made-by">made by <a href="https://www.github.com/icereg1992">icereg1992</a> on github</span>
         </div>
-        <span>made by <a href="https://www.github.com/icereg1992">icereg1992</a> on github</span>
       </div>
     </>
   );
