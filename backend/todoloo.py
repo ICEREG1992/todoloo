@@ -14,7 +14,6 @@ datafile = open('mem.pkl', 'rb')
 data = pickle.load(datafile)
 datafile.close()
 
-
 @app.route("/")
 def hello_world():
     return "backend online!"
