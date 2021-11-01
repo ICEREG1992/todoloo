@@ -1,29 +1,52 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import TodoList from './TodoList';
 import { v4 as uuidv4 } from 'uuid';
 
-const localStorageKey = 'todoloo.data';
+const backendAddress = 'http://localhost:5000/';
+const localStorageKey = "todoloo.uid"
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const uid = useRef(null);
   
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem(localStorageKey));
-    if (data) {
-      setTodos(data);
+    uid.current = localStorage.getItem(localStorageKey);
+    if (!uid.current) {
+      // this user doesn't have an id yet, generate a uid
+      uid.current = uuidv4();
+      localStorage.setItem(localStorageKey, uid.current);
     }
+    // now, get data
+    const options = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+    }
+    fetch(backendAddress + 'user/' + uid.current, options).then(res => res.json()).then(out => setTodos(out));
   }, [])
 
-  // save todos to localstorage
+  // save todos to api
   useEffect(() => {
-    localStorage.setItem(localStorageKey, JSON.stringify(todos));
+    console.log(todos);
+    uid.current = localStorage.getItem(localStorageKey);
+    if (!uid.current) {
+      // this user doesn't have a spot yet, generate a uid
+      uid.current = uuidv4();
+      localStorage.setItem(localStorageKey, uid.current);
+    }
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify(todos)
+    };
+    fetch(backendAddress + 'user/' + uid.current, options);
   }, [todos])
 
   function addTodo(e) {
     // add new todo to list
     const temp_id = uuidv4();
     setTodos(prev => {
+      console.log(prev);
       return [...prev, { id: temp_id, text: '', done: false }];
     });
     // todo starts in edit mode to user can fill in text
