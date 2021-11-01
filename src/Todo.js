@@ -1,7 +1,7 @@
 import React from 'react';
 import TodoText from './TodoText';
 
-export default function Todo({ todo, doneTodo, editing, toggleEditing, updateText, move, deleteTodo }) {
+export default function Todo({ todo, doneTodo, updateText, move, deleteTodo }) {
     function handleDone() {
         doneTodo(todo.id);
     }
@@ -21,7 +21,7 @@ export default function Todo({ todo, doneTodo, editing, toggleEditing, updateTex
     return (
         <div className={ todo.done ? "todo checked" : "todo" }>
             <input type="checkbox" checked={todo.done} onChange={handleDone}></input>
-            <TodoText editing={editing} todo={todo} toggleEditing={toggleEditing} updateText={updateText}/>
+            <TodoText todo={todo} updateText={updateText}/>
             <div className="buttons">
                 <button onClick={moveUp}>Ʌ</button>
                 <button onClick={moveDown}>V</button>

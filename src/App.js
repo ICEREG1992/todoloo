@@ -64,24 +64,21 @@ function App() {
   function move(up, id) {
     const temp = [...todos]; // make a copy
     const todo = temp.find(todo => todo.id===id);
-    if (up) {
-      arrayMove(temp, temp.indexOf(todo), temp.indexOf(todo)-1)
-    } else if (temp.indexOf(todo) < temp.length) {
-      arrayMove(temp, temp.indexOf(todo), temp.indexOf(todo)+1)
-    } else {
-      // do nothing
+    var ind = temp.indexOf(todo);
+    if (up && ind > 0) {
+      var x = temp[ind-1];
+      temp[ind-1] = temp[ind];
+      temp[ind] = x;
+    } else if (!up && ind < (todos.length - 1)) {
+      x = temp[ind+1];
+      temp[ind+1] = temp[ind];
+      temp[ind] = x
     }
     setTodos(temp)
   }
 
   function deleteTodo(id) {
     setTodos(todos.filter(todo => todo.id !== id));
-  }
-
-  function arrayMove(arr, fromIndex, toIndex) {
-    var element = arr[fromIndex];
-    arr.splice(fromIndex, 1);
-    arr.splice(toIndex, 0, element);
   }
 
   return (
