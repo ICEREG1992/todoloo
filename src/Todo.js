@@ -21,7 +21,7 @@ export default function Todo({ todo, doneTodo, updateText, move, deleteTodo }) {
     return (
         <div className={ todo.done ? "todo checked" : "todo" }>
             <input type="checkbox" checked={todo.done} onChange={handleDone}></input>
-            <TodoText todo={todo} updateText={updateText}/>
+            <TodoText todo={todo} updateText={updateText} deleteTodo={deleteTodo}/>
             <div className="buttons">
                 <button onClick={moveUp}>Ʌ</button>
                 <button onClick={moveDown}>V</button>

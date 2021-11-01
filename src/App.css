@@ -1,7 +1,8 @@
 html, body, #root {
   padding: 0;
   height: 100%;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Zen Kaku Gothic Antique', sans-serif;
+  background-color: lightgrey;
 }
 
 #root {
@@ -47,6 +48,7 @@ html, body, #root {
   align-items: center;
   border: 2px solid black;
   border-radius: 2px 2px 0px 0px;
+  background-color: white;
   height: 70%;
   width: 60%;
 }
@@ -110,8 +112,10 @@ html, body, #root {
 
 .todo span, .todo input[type=text]  {
   min-height: 21px;
+  max-height: 10px;
   min-width: 200px;
   max-width: 80%;
+  border-radius: 1px;
   text-align: center
 }
 

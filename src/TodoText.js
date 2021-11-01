@@ -1,12 +1,15 @@
 import React, { useRef, useState } from 'react';
 
-export default function TodoText({ todo, updateText }) {
+export default function TodoText({ todo, updateText, deleteTodo }) {
     const ref = useRef();
     const [editing, setEditing] = useState(true);
 
     function handleSubmit(e) {
         e.preventDefault();
         setEditing(false);
+        if (ref.current.value === "") {
+            deleteTodo(todo.id)
+        }
     }
 
     function startEdit(e) {
@@ -18,7 +21,7 @@ export default function TodoText({ todo, updateText }) {
     }
 
     function handleUpdate() {
-        updateText(ref, todo.id);
+        updateText(ref.current.value, todo.id);
     }
 
     if (editing) {

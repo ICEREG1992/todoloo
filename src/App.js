@@ -24,7 +24,7 @@ function App() {
     // add new todo to list
     const temp_id = uuidv4();
     setTodos(prev => {
-      return [...prev, { id: temp_id, text: '', done: false, editing: true}];
+      return [...prev, { id: temp_id, text: '', done: false }];
     });
     // todo starts in edit mode to user can fill in text
   }
@@ -46,18 +46,10 @@ function App() {
     setTodos(temp);
   }
 
-  function toggleEditing(id) {
+  function updateText(text, id) {
     const temp = [...todos]; // make a copy
     const todo = temp.find(todo => todo.id===id);
-    todo.editing = !todo.editing;
-    setTodos(temp);
-  }
-
-  function updateText(ref, id) {
-    const newText = ref.current.value;
-    const temp = [...todos]; // make a copy
-    const todo = temp.find(todo => todo.id===id);
-    todo.text = newText;
+    todo.text = text;
     setTodos(temp);
   }
 
@@ -81,6 +73,14 @@ function App() {
     setTodos(todos.filter(todo => todo.id !== id));
   }
 
+  function percentage() {
+    if (todos.length) {
+      return (todos.filter(todo => todo.done).length / todos.length) * 100 + "%";
+    } else {
+      return "100%";
+    }
+  }
+
   return (
     <>
       <div className="header">
@@ -90,7 +90,7 @@ function App() {
         <div className="main">
           <div className="menu">
             <div className="list">
-              <TodoList todos={todos} doneTodo={doneTodo} toggleEditing={toggleEditing} updateText={updateText} move={move} deleteTodo={deleteTodo} />
+              <TodoList todos={todos} doneTodo={doneTodo} setTodos={setTodos} updateText={updateText} move={move} deleteTodo={deleteTodo} />
             </div>
             <div className="manage">
               <button onClick={addTodo}>new todo</button>
@@ -99,7 +99,7 @@ function App() {
             </div>
           </div>
           <div className="progressbar">
-            <div className="progress" style={{width: (todos.filter(todo => todo.done).length / todos.length) * 100 + "%"}}></div>
+            <div className="progress" style={{width: percentage()}}></div>
           </div>
         </div>
         <div className="credits">
